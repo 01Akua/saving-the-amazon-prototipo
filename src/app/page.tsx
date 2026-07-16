@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ScrollExpandHero } from "@/components/home/ScrollExpandHero";
 import { ImpactStats } from "@/components/home/ImpactStats";
-import { Comparison } from "@/components/home/Comparison";
+import { VideoSection } from "@/components/home/VideoSection";
 import { Process } from "@/components/home/Process";
 import { ProjectsGrid } from "@/components/home/ProjectsGrid";
 import { Quote } from "@/components/home/Quote";
@@ -17,7 +17,7 @@ export default function Home() {
       <main className="flex-1">
         <ScrollExpandHero />
         <ImpactStats />
-        <Comparison />
+        <VideoSection />
         <Process />
         <ProjectsGrid />
         <Quote />
