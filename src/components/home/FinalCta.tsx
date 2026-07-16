@@ -26,7 +26,7 @@ export function FinalCta() {
   return (
     <section className="relative overflow-hidden mx-5 sm:mx-8 max-w-6xl lg:mx-auto rounded-3xl my-24">
       <div className="absolute inset-0">
-        <Image src={asset("/images/banner-arbol.jpg")} alt="" fill className="object-cover" />
+        <Image src={asset("/images/aldea-amazonia.jpg")} alt="" fill className="object-cover" />
         <div className="absolute inset-0 bg-forest-dark/80" />
       </div>
       <div className="relative px-8 py-20 text-center flex flex-col items-center">

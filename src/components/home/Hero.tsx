@@ -33,13 +33,13 @@ export function Hero() {
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={asset("/images/hero-banner.jpg")}
+          src={asset("/images/rio-comunidad.jpg")}
           alt=""
           fill
           preload={true}
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest-dark/90 via-forest-dark/70 to-forest-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-forest-dark/95 via-forest-dark/75 to-forest-dark/30" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8 py-28 sm:py-36">
