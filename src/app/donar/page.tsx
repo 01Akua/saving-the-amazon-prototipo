@@ -206,7 +206,7 @@ function DonarContent() {
                   }}
                   className={`py-3 rounded-xl text-sm font-bold border transition-colors ${
                     !isCustom && amount === a
-                      ? "bg-gold border-gold text-forest-dark"
+                      ? "bg-gold border-gold text-cream-soft"
                       : "border-forest/15 text-forest/70"
                   }`}
                 >
@@ -218,7 +218,7 @@ function DonarContent() {
                 whileHover={{ y: -2 }}
                 onClick={() => setIsCustom(true)}
                 className={`py-3 rounded-xl text-sm font-bold border transition-colors ${
-                  isCustom ? "bg-gold border-gold text-forest-dark" : "border-forest/15 text-forest/70"
+                  isCustom ? "bg-gold border-gold text-cream-soft" : "border-forest/15 text-forest/70"
                 }`}
               >
                 {c.custom}
@@ -334,7 +334,7 @@ function DonarContent() {
             whileTap={finalAmount > 0 ? { scale: 0.97 } : {}}
             onClick={() => setSubmitted(true)}
             disabled={finalAmount <= 0}
-            className="w-full mt-6 bg-gold hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed text-forest-dark font-bold py-3.5 rounded-full transition-colors"
+            className="w-full mt-6 bg-gold hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed text-cream-soft font-bold py-3.5 rounded-full transition-colors"
           >
             {c.submit}
           </motion.button>

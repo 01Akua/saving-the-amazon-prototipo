@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --color-forest: #1e3a2b;
-  --color-forest-dark: #122318;
-  --color-forest-light: #2f5642;
-  --color-gold: #d6a544;
-  --color-gold-light: #eac06b;
-  --color-cream: #f7f2e7;
-  --color-cream-soft: #fbf8f1;
-  --color-ink: #17241a;
+  --color-forest: #143430;
+  --color-forest-dark: #091d1a;
+  --color-forest-light: #235349;
+  --color-gold: #c1602e;
+  --color-gold-light: #dd8952;
+  --color-cream: #f1e6d2;
+  --color-cream-soft: #f8f2e5;
+  --color-ink: #16211d;
 }
 
 @theme inline {
@@ -20,7 +20,7 @@
   --color-cream: var(--color-cream);
   --color-cream-soft: var(--color-cream-soft);
   --color-ink: var(--color-ink);
-  --font-sans: var(--font-jakarta);
+  --font-sans: var(--font-manrope);
 }
 
 html {
@@ -30,4 +30,17 @@ html {
 body {
   background: var(--color-cream-soft);
   color: var(--color-ink);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
 }

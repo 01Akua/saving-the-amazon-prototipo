@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Sprout, MapPinned, Award } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
+import { TextReveal } from "@/components/TextReveal";
 
 const copy = {
   es: {
@@ -56,10 +57,12 @@ export function Process() {
 
   return (
     <section className="mx-auto max-w-6xl px-5 sm:px-8 py-24">
-      <Reveal className="text-center mb-14">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-forest">{c.title}</h2>
-        <p className="text-forest/60 mt-2">{c.subtitle}</p>
-      </Reveal>
+      <div className="text-center mb-14">
+        <TextReveal as="h2" text={c.title} className="text-2xl sm:text-3xl font-extrabold text-forest" />
+        <Reveal delay={0.2}>
+          <p className="text-forest/60 mt-2">{c.subtitle}</p>
+        </Reveal>
+      </div>
 
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-3 gap-8"

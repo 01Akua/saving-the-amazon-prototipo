@@ -116,7 +116,7 @@ export default function SiembraUnArbolPage() {
                 <motion.span
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="group bg-gold hover:bg-gold-light text-forest-dark font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors whitespace-nowrap"
+                  className="group bg-gold hover:bg-gold-light text-cream-soft font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors whitespace-nowrap"
                 >
                   {c.cta}
                   <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />

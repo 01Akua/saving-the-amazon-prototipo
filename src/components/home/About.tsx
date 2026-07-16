@@ -6,6 +6,7 @@ import { ShieldCheck, Languages, Zap } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
 import { staggerContainer, staggerItem } from "@/components/Reveal";
+import { TextReveal } from "@/components/TextReveal";
 
 const copy = {
   es: {
@@ -58,9 +59,11 @@ export function About() {
         <motion.p variants={staggerItem} className="text-gold font-bold text-sm uppercase tracking-[0.2em] mb-4">
           {c.eyebrow}
         </motion.p>
-        <motion.h2 variants={staggerItem} className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5">
-          {c.title}
-        </motion.h2>
+        <TextReveal
+          as="h2"
+          text={c.title}
+          className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5"
+        />
         <motion.p variants={staggerItem} className="text-forest/70 leading-relaxed mb-8">
           {c.text}
         </motion.p>

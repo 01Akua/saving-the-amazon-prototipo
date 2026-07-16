@@ -154,7 +154,7 @@ export function ScrollExpandHero() {
                   <motion.span
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="group bg-gold hover:bg-gold-light text-forest-dark font-bold px-7 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-black/10"
+                    className="group bg-gold hover:bg-gold-light text-cream-soft font-bold px-7 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-black/10"
                   >
                     {c.cta}
                     <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />

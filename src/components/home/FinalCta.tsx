@@ -7,6 +7,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
 import { staggerContainer, staggerItem } from "@/components/Reveal";
+import { TextReveal } from "@/components/TextReveal";
 
 const copy = {
   es: {
@@ -38,9 +39,7 @@ export function FinalCta() {
         viewport={{ once: true, margin: "-80px" }}
         variants={staggerContainer}
       >
-        <motion.h2 variants={staggerItem} className="text-3xl sm:text-4xl font-extrabold text-white max-w-xl">
-          {c.title}
-        </motion.h2>
+        <TextReveal as="h2" text={c.title} className="text-3xl sm:text-4xl font-extrabold text-white max-w-xl" />
         <motion.p variants={staggerItem} className="text-cream/80 mt-4 max-w-md">
           {c.text}
         </motion.p>
@@ -49,7 +48,7 @@ export function FinalCta() {
             <motion.span
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="group mt-8 bg-gold hover:bg-gold-light text-forest-dark font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
+              className="group mt-8 bg-gold hover:bg-gold-light text-cream-soft font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
             >
               {c.cta}
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />

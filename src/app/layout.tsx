@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { LangProvider } from "@/lib/i18n";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang="es" className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream-soft text-ink font-sans">
         <LangProvider>{children}</LangProvider>
       </body>
