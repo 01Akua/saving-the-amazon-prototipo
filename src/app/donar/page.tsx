@@ -1,10 +1,12 @@
 "use client";
 
 import { Suspense, useMemo, useState } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, Lock, CreditCard, Landmark } from "lucide-react";
 import { useLang, type Lang } from "@/lib/i18n";
+import { asset } from "@/lib/site-config";
 import { CampaignHeader } from "@/components/CampaignHeader";
 import { Footer } from "@/components/Footer";
 import { staggerContainer, staggerItem } from "@/components/Reveal";
@@ -319,8 +321,13 @@ function DonarContent() {
 
         <motion.aside
           variants={staggerItem}
-          className="lg:sticky lg:top-24 h-fit bg-cream rounded-2xl border border-forest/10 p-6"
+          className="lg:sticky lg:top-24 h-fit bg-cream rounded-2xl border border-forest/10 overflow-hidden"
         >
+          <div className="relative aspect-[16/9]">
+            <Image src={asset("/images/campana-siembra.jpg")} alt="" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-cream via-cream/10 to-transparent" />
+          </div>
+          <div className="p-6 pt-0 -mt-4 relative">
           <h3 className="font-bold text-forest mb-5">{c.summary}</h3>
           <dl className="space-y-3 text-sm">
             <div className="flex justify-between">
@@ -362,6 +369,7 @@ function DonarContent() {
           <p className="flex items-center gap-1.5 justify-center text-xs text-forest/50 mt-4">
             <Lock size={12} /> {c.secure}
           </p>
+          </div>
         </motion.aside>
       </motion.div>
     </section>

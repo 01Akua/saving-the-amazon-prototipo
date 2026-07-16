@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { TreePine, Globe2, Leaf, Users, MapPinned } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import { asset } from "@/lib/site-config";
 import { CountUp } from "@/components/CountUp";
 import { TextReveal } from "@/components/TextReveal";
 import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
@@ -56,14 +58,21 @@ export function ImpactStats() {
         >
           <motion.div
             variants={staggerItem}
-            className="col-span-2 row-span-2 rounded-3xl bg-gradient-to-br from-forest-light to-forest p-8 flex flex-col justify-between border border-white/10"
+            className="relative col-span-2 row-span-2 rounded-3xl overflow-hidden p-8 flex flex-col justify-between border border-white/10"
           >
-            <big.icon size={28} className="text-gold-light" />
-            <div>
+            <Image
+              src={asset("/images/comunidad-tejedora.jpg")}
+              alt=""
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-dark via-forest-dark/70 to-forest-dark/20" />
+            <big.icon size={28} className="relative text-gold-light" />
+            <div className="relative">
               <p className="text-4xl sm:text-5xl font-extrabold text-gold-light">
                 <CountUp value={big.value} />
               </p>
-              <p className="text-sm text-cream/70 mt-2">{big.label}</p>
+              <p className="text-sm text-cream/80 mt-2">{big.label}</p>
             </div>
           </motion.div>
 

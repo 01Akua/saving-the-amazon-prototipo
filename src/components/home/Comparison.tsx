@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import { asset } from "@/lib/site-config";
 import { TextReveal } from "@/components/TextReveal";
 import { Reveal } from "@/components/Reveal";
 
@@ -45,8 +47,14 @@ export function Comparison() {
   const inView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section className="bg-forest-dark py-24 overflow-hidden">
-      <div className="mx-auto max-w-5xl px-5 sm:px-8">
+    <section className="relative bg-forest-dark py-24 overflow-hidden">
+      <Image
+        src={asset("/images/aldea-amazonia.jpg")}
+        alt=""
+        fill
+        className="object-cover opacity-[0.08]"
+      />
+      <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
         <div className="text-center mb-14">
           <Reveal>
             <p className="text-gold-light font-bold text-sm uppercase tracking-[0.2em] mb-4">{c.eyebrow}</p>
