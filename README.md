@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prototipo — Saving The Amazon
 
-## Getting Started
+Prototipo de alta fidelidad para presentar al cliente, construido para demostrar la propuesta
+de `Propuesta_Fase1_SavingTheAmazon.pdf`: una página propia (no Shopify), rápida, bilingüe,
+con un proceso de donación diseñado para donar y no para comprar.
 
-First, run the development server:
+## Cómo verlo
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Qué incluye (alcance de este prototipo)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Home** (`/`) — menú simplificado (3 opciones + CTA), cifras reales de la fundación,
+  proceso en 3 pasos, grilla de proyectos, sección "Nosotros", aliados, CTA final.
+- **Landing de campaña** (`/campanas/siembra-un-arbol`) — header mínimo (sin el menú de
+  30+ enlaces), un solo botón de "Donar", coherente con lo que vería alguien que llega
+  desde un anuncio de Google.
+- **Flujo de donación** (`/donar`) — sin lenguaje de tienda ("agotado", "variante"), con
+  monto/frecuencia, dedicatoria del árbol y datos del donante. El botón "Confirmar
+  donación" es una simulación visual — no hay pasarela de pago real conectada.
+- **Selector ES/EN** en todo el sitio, sin textos sueltos sin traducir.
 
-## Learn More
+## Qué NO incluye todavía
 
-To learn more about Next.js, take a look at the following resources:
+- Integración real de pago (PSE / tarjetas) — falta definir proveedor con el cliente.
+- Panel de noticias y formulario de contacto conectado (mencionados en la propuesta).
+- Landings para las otras 2 campañas (Amazonía con Propósito, Apadrina el Amazonas) —
+  hoy enlazan al mismo flujo de donación con el nombre de campaña en la URL.
+- Contenido definitivo del cliente (fotos, videos, cifras actualizadas, textos finales) —
+  la propuesta pide este material antes de construir la versión real. Este prototipo usa
+  textos e imágenes tomados del sitio actual de Saving The Amazon solo para fines de
+  presentación interna.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 + TypeScript + Tailwind CSS v4 + Framer Motion + lucide-react, siguiendo las
+mismas convenciones que `pharma-dream-web` y `Tia-Anny`.
