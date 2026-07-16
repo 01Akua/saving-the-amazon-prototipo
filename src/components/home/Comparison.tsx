@@ -16,6 +16,7 @@ const copy = {
     subtitle: "Lo que resuelve esta página nueva, punto por punto.",
     beforeLabel: "Hoy (Shopify)",
     afterLabel: "Página propia",
+    imageCaption: "Detrás de cada punto de esta tabla hay una comunidad real de la Amazonía.",
     rows: [
       { before: "Se siente como comprar en una tienda", after: "Diseñada para donar, no para comprar" },
       { before: "Textos sin traducir en el checkout", after: "Español e inglés reales, sin errores" },
@@ -30,6 +31,7 @@ const copy = {
     subtitle: "What this new site fixes, point by point.",
     beforeLabel: "Today (Shopify)",
     afterLabel: "Own site",
+    imageCaption: "Behind every row in this table is a real community in the Amazon.",
     rows: [
       { before: "Feels like shopping in a store", after: "Designed to donate, not to shop" },
       { before: "Untranslated text at checkout", after: "Real Spanish and English, no errors" },
@@ -47,14 +49,8 @@ export function Comparison() {
   const inView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section className="relative bg-forest-dark py-24 overflow-hidden">
-      <Image
-        src={asset("/images/aldea-amazonia.jpg")}
-        alt=""
-        fill
-        className="object-cover opacity-[0.08]"
-      />
-      <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
+    <section className="bg-forest-dark py-24">
+      <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <div className="text-center mb-14">
           <Reveal>
             <p className="text-gold-light font-bold text-sm uppercase tracking-[0.2em] mb-4">{c.eyebrow}</p>
@@ -68,6 +64,14 @@ export function Comparison() {
             <p className="text-cream/60 mt-4">{c.subtitle}</p>
           </Reveal>
         </div>
+
+        <Reveal delay={0.15} className="relative aspect-[21/9] rounded-2xl overflow-hidden mb-6">
+          <Image src={asset("/images/rio-comunidad.jpg")} alt="" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-forest-dark via-forest-dark/20 to-transparent" />
+          <p className="absolute bottom-5 left-6 right-6 text-cream/90 text-sm sm:text-base font-medium">
+            {c.imageCaption}
+          </p>
+        </Reveal>
 
         <div ref={ref} className="grid grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden">
           <div className="bg-forest-dark px-5 sm:px-8 py-5 text-cream/50 font-bold text-xs sm:text-sm uppercase tracking-wide">
