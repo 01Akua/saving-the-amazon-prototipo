@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Hero } from "@/components/home/Hero";
+import { ScrollExpandHero } from "@/components/home/ScrollExpandHero";
 import { ImpactStats } from "@/components/home/ImpactStats";
 import { Process } from "@/components/home/Process";
 import { ProjectsGrid } from "@/components/home/ProjectsGrid";
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Header />
       <main className="flex-1">
-        <Hero />
+        <ScrollExpandHero />
         <ImpactStats />
         <Process />
         <ProjectsGrid />
