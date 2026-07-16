@@ -1,15 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Sprout, MapPinned, Award } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
 import { TextReveal } from "@/components/TextReveal";
 
 const copy = {
   es: {
     title: "Así funciona tu siembra",
     subtitle: "Tres pasos, sin letra pequeña.",
+    stepLabel: "Paso",
     steps: [
       {
         icon: Sprout,
@@ -31,6 +33,7 @@ const copy = {
   en: {
     title: "How your tree gets planted",
     subtitle: "Three steps, no fine print.",
+    stepLabel: "Step",
     steps: [
       {
         icon: Sprout,
@@ -54,42 +57,44 @@ const copy = {
 export function Process() {
   const { lang } = useLang();
   const c = copy[lang];
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.75", "end 0.4"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="mx-auto max-w-6xl px-5 sm:px-8 py-24">
-      <div className="text-center mb-14">
+    <section className="mx-auto max-w-3xl px-5 sm:px-8 py-24">
+      <div className="text-center mb-16">
         <TextReveal as="h2" text={c.title} className="text-2xl sm:text-3xl font-extrabold text-forest" />
         <Reveal delay={0.2}>
           <p className="text-forest/60 mt-2">{c.subtitle}</p>
         </Reveal>
       </div>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-3 gap-8"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={staggerContainer}
-      >
-        {c.steps.map((step, i) => (
-          <motion.div
-            key={step.title}
-            variants={staggerItem}
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.3 }}
-            className="relative bg-cream rounded-2xl p-8 border border-forest/10"
-          >
-            <span className="absolute -top-4 -left-2 text-6xl font-extrabold text-forest/[0.06]">
-              0{i + 1}
-            </span>
-            <div className="relative w-12 h-12 rounded-full bg-forest text-gold-light flex items-center justify-center mb-5">
-              <step.icon size={22} />
-            </div>
-            <h3 className="relative font-bold text-lg text-forest mb-2">{step.title}</h3>
-            <p className="relative text-sm text-forest/70 leading-relaxed">{step.text}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+      <div ref={ref} className="relative pl-16 sm:pl-20">
+        <div className="absolute left-6 sm:left-8 top-2 bottom-2 w-px bg-forest/10" />
+        <motion.div
+          style={{ height: lineHeight }}
+          className="absolute left-6 sm:left-8 top-2 w-px bg-gold origin-top"
+        />
+
+        <div className="space-y-14">
+          {c.steps.map((step, i) => (
+            <Reveal key={step.title} delay={i * 0.08} className="relative">
+              <div className="absolute -left-16 sm:-left-20 top-0 w-12 h-12 rounded-full bg-forest text-gold-light flex items-center justify-center border-4 border-cream-soft shadow-sm">
+                <step.icon size={20} />
+              </div>
+              <span className="text-xs font-bold text-gold uppercase tracking-widest">
+                {c.stepLabel} 0{i + 1}
+              </span>
+              <h3 className="font-bold text-xl text-forest mt-1 mb-2">{step.title}</h3>
+              <p className="text-sm text-forest/70 leading-relaxed max-w-md">{step.text}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

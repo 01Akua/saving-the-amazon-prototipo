@@ -9,6 +9,7 @@ import { asset } from "@/lib/site-config";
 import { CampaignHeader } from "@/components/CampaignHeader";
 import { Footer } from "@/components/Footer";
 import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
+import { TextReveal } from "@/components/TextReveal";
 
 const copy = {
   es: {
@@ -143,30 +144,36 @@ export default function SiembraUnArbolPage() {
 
         <section className="bg-cream py-20 mt-6">
           <div className="mx-auto max-w-5xl px-5 sm:px-8">
-            <Reveal>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-forest text-center mb-12">
-                {c.benefitsTitle}
-              </h2>
-            </Reveal>
+            <TextReveal
+              as="h2"
+              text={c.benefitsTitle}
+              className="text-2xl sm:text-3xl font-extrabold text-forest text-center mb-12"
+            />
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 gap-5"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
               variants={staggerContainer}
             >
-              {c.benefits.map((b) => (
+              {c.benefits.map((b, i) => (
                 <motion.div
                   key={b.title}
                   variants={staggerItem}
                   whileHover={{ y: -4 }}
-                  className="bg-white rounded-2xl p-6 border border-forest/10 flex gap-4"
+                  className={`bg-white rounded-2xl p-6 border border-forest/10 flex flex-col justify-between ${
+                    i === 0 ? "sm:col-span-2 sm:row-span-2" : ""
+                  }`}
                 >
-                  <div className="w-11 h-11 shrink-0 rounded-full bg-forest text-gold-light flex items-center justify-center">
-                    <b.icon size={19} />
+                  <div
+                    className={`shrink-0 rounded-full bg-forest text-gold-light flex items-center justify-center mb-4 ${
+                      i === 0 ? "w-14 h-14" : "w-11 h-11"
+                    }`}
+                  >
+                    <b.icon size={i === 0 ? 24 : 19} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-forest mb-1">{b.title}</h3>
+                    <h3 className={`font-bold text-forest mb-1 ${i === 0 ? "text-xl" : ""}`}>{b.title}</h3>
                     <p className="text-sm text-forest/60 leading-relaxed">{b.text}</p>
                   </div>
                 </motion.div>

@@ -82,20 +82,26 @@ export function ProjectsGrid() {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-7"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-7"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
         >
-          {c.cards.map((card) => (
-            <motion.div key={card.title} variants={staggerItem}>
-              <TiltCard className="relative rounded-2xl">
+          {c.cards.map((card, i) => (
+            <motion.div key={card.title} variants={staggerItem} className={i === 0 ? "sm:row-span-2" : ""}>
+              <TiltCard className="relative rounded-2xl h-full">
                 <Link
                   href={card.href}
-                  className="group block rounded-2xl overflow-hidden bg-white border border-forest/10 hover:shadow-2xl hover:shadow-forest/15 transition-shadow"
+                  className={`group flex flex-col h-full rounded-2xl overflow-hidden bg-white border border-forest/10 hover:shadow-2xl hover:shadow-forest/15 transition-shadow ${
+                    i === 0 ? "sm:flex-col" : "sm:flex-row"
+                  }`}
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                  <div
+                    className={`relative overflow-hidden shrink-0 ${
+                      i === 0 ? "aspect-[4/5] sm:aspect-[4/3.4]" : "aspect-[4/3] sm:w-40 sm:aspect-auto"
+                    }`}
+                  >
                     <Image
                       src={asset(card.image)}
                       alt={card.title}
@@ -103,8 +109,10 @@ export function ProjectsGrid() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-forest text-lg mb-1.5">{card.title}</h3>
+                  <div className="p-6 flex flex-col justify-center">
+                    <h3 className={`font-bold text-forest mb-1.5 ${i === 0 ? "text-xl" : "text-lg"}`}>
+                      {card.title}
+                    </h3>
                     <p className="text-sm text-forest/60 leading-relaxed mb-4">{card.text}</p>
                     <span className="inline-flex items-center gap-1.5 text-sm font-bold text-gold group-hover:gap-2.5 transition-all">
                       {c.cta} <ArrowRight size={15} />

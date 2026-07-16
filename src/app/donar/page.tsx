@@ -166,6 +166,27 @@ function DonarContent() {
       </motion.div>
 
       <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+        className="hidden sm:flex items-center mb-12 max-w-xl"
+      >
+        {[c.step1, c.step2, c.step3].map((label, i) => (
+          <motion.div key={label} variants={staggerItem} className="flex items-center flex-1 last:flex-none">
+            <div className="flex items-center gap-2.5 shrink-0">
+              <div className="w-8 h-8 rounded-full bg-forest text-cream-soft text-xs font-bold flex items-center justify-center">
+                {i + 1}
+              </div>
+              <span className="text-xs font-semibold text-forest/70 whitespace-nowrap">
+                {label.replace(/^\d\.\s*/, "")}
+              </span>
+            </div>
+            {i < 2 && <div className="flex-1 h-px bg-forest/15 mx-4" />}
+          </motion.div>
+        ))}
+      </motion.div>
+
+      <motion.div
         className="grid grid-cols-1 lg:grid-cols-3 gap-10"
         initial="hidden"
         animate="visible"
