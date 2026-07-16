@@ -61,11 +61,11 @@ export function Header() {
       >
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
-            src={asset("/images/logo.png")}
+            src={asset(light ? "/images/logo.png" : "/images/logo-light.png")}
             alt="Saving The Amazon"
             width={120}
             height={49}
-            className={`h-8 w-auto transition-[filter] duration-300 ${light ? "" : "brightness-0 invert"}`}
+            className="h-8 w-auto"
           />
         </Link>
 

@@ -66,11 +66,11 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <Image
-            src={asset("/images/logo.png")}
+            src={asset("/images/logo-light.png")}
             alt="Saving The Amazon"
             width={140}
             height={57}
-            className="h-10 w-auto brightness-0 invert opacity-90 mb-4"
+            className="h-10 w-auto mb-4"
           />
           <p className="text-sm max-w-sm leading-relaxed">{c.tagline}</p>
           <div className="flex gap-3 mt-5">
