@@ -1,6 +1,7 @@
 "use client";
 
 import { useLang } from "@/lib/i18n";
+import { Reveal } from "@/components/Reveal";
 
 const copy = {
   es: {
@@ -20,16 +21,18 @@ export function Allies() {
   return (
     <section className="border-y border-forest/10">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14">
-        <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-forest/50 mb-8">
-          {c.title}
-        </p>
-        <div className="flex flex-wrap justify-center gap-x-14 gap-y-4">
+        <Reveal>
+          <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-forest/50 mb-8">
+            {c.title}
+          </p>
+        </Reveal>
+        <Reveal delay={0.1} className="flex flex-wrap justify-center gap-x-14 gap-y-4">
           {c.names.map((name) => (
             <span key={name} className="text-xl font-extrabold text-forest/30">
               {name}
             </span>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

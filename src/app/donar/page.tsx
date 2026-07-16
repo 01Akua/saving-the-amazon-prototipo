@@ -2,10 +2,12 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, Lock, CreditCard, Landmark } from "lucide-react";
 import { useLang, type Lang } from "@/lib/i18n";
 import { CampaignHeader } from "@/components/CampaignHeader";
 import { Footer } from "@/components/Footer";
+import { staggerContainer, staggerItem } from "@/components/Reveal";
 
 const amounts = [65000, 130000, 195000];
 
@@ -113,17 +115,47 @@ function DonarContent() {
 
   if (submitted) {
     return (
-      <section className="mx-auto max-w-lg px-5 sm:px-8 py-28 text-center">
-        <CheckCircle2 className="text-gold mx-auto mb-6" size={56} />
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-forest mb-4">{c.successTitle}</h1>
-        <p className="text-forest/60 leading-relaxed">{c.successText}</p>
-      </section>
+      <motion.section
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mx-auto max-w-lg px-5 sm:px-8 py-28 text-center"
+      >
+        <motion.div
+          initial={{ scale: 0, rotate: -90 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
+        >
+          <CheckCircle2 className="text-gold mx-auto mb-6" size={56} />
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-2xl sm:text-3xl font-extrabold text-forest mb-4"
+        >
+          {c.successTitle}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-forest/60 leading-relaxed"
+        >
+          {c.successText}
+        </motion.p>
+      </motion.section>
     );
   }
 
   return (
     <section className="mx-auto max-w-5xl px-5 sm:px-8 py-14">
-      <div className="mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-10"
+      >
         <h1 className="text-3xl sm:text-4xl font-extrabold text-forest">{c.title}</h1>
         <p className="text-forest/60 mt-2">{c.subtitle}</p>
         {campaign && (
@@ -131,34 +163,43 @@ function DonarContent() {
             {c.campaignNote}: {campaign}
           </p>
         )}
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-3 gap-10"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
         <div className="lg:col-span-2 space-y-10">
-          <div>
+          <motion.div variants={staggerItem}>
             <h2 className="font-bold text-forest mb-4">{c.step1}</h2>
             <div className="flex gap-2 mb-5">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setFrequency("once")}
                 className={`flex-1 py-2.5 rounded-full text-sm font-semibold border transition-colors ${
                   frequency === "once" ? "bg-forest text-white border-forest" : "border-forest/20 text-forest/70"
                 }`}
               >
                 {c.once}
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setFrequency("monthly")}
                 className={`flex-1 py-2.5 rounded-full text-sm font-semibold border transition-colors ${
                   frequency === "monthly" ? "bg-forest text-white border-forest" : "border-forest/20 text-forest/70"
                 }`}
               >
                 {c.monthly}
-              </button>
+              </motion.button>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {amounts.map((a) => (
-                <button
+                <motion.button
                   key={a}
+                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ y: -2 }}
                   onClick={() => {
                     setAmount(a);
                     setIsCustom(false);
@@ -170,30 +211,38 @@ function DonarContent() {
                   }`}
                 >
                   {currency.format(a)}
-                </button>
+                </motion.button>
               ))}
-              <button
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ y: -2 }}
                 onClick={() => setIsCustom(true)}
                 className={`py-3 rounded-xl text-sm font-bold border transition-colors ${
                   isCustom ? "bg-gold border-gold text-forest-dark" : "border-forest/15 text-forest/70"
                 }`}
               >
                 {c.custom}
-              </button>
+              </motion.button>
             </div>
-            {isCustom && (
-              <input
-                type="number"
-                min={0}
-                value={customAmount}
-                onChange={(e) => setCustomAmount(e.target.value)}
-                placeholder="$ COP"
-                className="mt-3 w-full border border-forest/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold"
-              />
-            )}
-          </div>
+            <AnimatePresence>
+              {isCustom && (
+                <motion.input
+                  initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                  animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                  exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                  transition={{ duration: 0.25 }}
+                  type="number"
+                  min={0}
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  placeholder="$ COP"
+                  className="w-full border border-forest/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold"
+                />
+              )}
+            </AnimatePresence>
+          </motion.div>
 
-          <div>
+          <motion.div variants={staggerItem}>
             <h2 className="font-bold text-forest mb-4">{c.step2}</h2>
             <label className="block text-sm font-semibold text-forest/70 mb-1.5">{c.motiveLabel}</label>
             <select
@@ -213,9 +262,9 @@ function DonarContent() {
               maxLength={40}
               className="w-full border border-forest/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold"
             />
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={staggerItem}>
             <h2 className="font-bold text-forest mb-4">{c.step3}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <input placeholder={c.fullName} className="border border-forest/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold" />
@@ -225,27 +274,32 @@ function DonarContent() {
 
             <label className="block text-sm font-semibold text-forest/70 mb-1.5">{c.payment}</label>
             <div className="flex gap-3">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setPaymentMethod("pse")}
                 className={`flex-1 py-3 rounded-xl text-sm font-semibold border flex items-center justify-center gap-2 transition-colors ${
                   paymentMethod === "pse" ? "bg-forest text-white border-forest" : "border-forest/20 text-forest/70"
                 }`}
               >
                 <Landmark size={16} /> {c.pse}
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setPaymentMethod("card")}
                 className={`flex-1 py-3 rounded-xl text-sm font-semibold border flex items-center justify-center gap-2 transition-colors ${
                   paymentMethod === "card" ? "bg-forest text-white border-forest" : "border-forest/20 text-forest/70"
                 }`}
               >
                 <CreditCard size={16} /> {c.card}
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <aside className="lg:sticky lg:top-24 h-fit bg-cream rounded-2xl border border-forest/10 p-6">
+        <motion.aside
+          variants={staggerItem}
+          className="lg:sticky lg:top-24 h-fit bg-cream rounded-2xl border border-forest/10 p-6"
+        >
           <h3 className="font-bold text-forest mb-5">{c.summary}</h3>
           <dl className="space-y-3 text-sm">
             <div className="flex justify-between">
@@ -256,24 +310,39 @@ function DonarContent() {
               <dt className="text-forest/60">{c.motive}</dt>
               <dd className="font-semibold text-forest">{motive}</dd>
             </div>
-            <div className="flex justify-between pt-3 border-t border-forest/10">
+            <div className="flex justify-between pt-3 border-t border-forest/10 overflow-hidden">
               <dt className="text-forest/60">{c.total}</dt>
-              <dd className="font-extrabold text-forest text-lg">{currency.format(finalAmount)}</dd>
+              <dd className="font-extrabold text-forest text-lg">
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={finalAmount}
+                    initial={{ opacity: 0, y: -12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 12 }}
+                    transition={{ duration: 0.2 }}
+                    className="inline-block"
+                  >
+                    {currency.format(finalAmount)}
+                  </motion.span>
+                </AnimatePresence>
+              </dd>
             </div>
           </dl>
 
-          <button
+          <motion.button
+            whileHover={finalAmount > 0 ? { scale: 1.02 } : {}}
+            whileTap={finalAmount > 0 ? { scale: 0.97 } : {}}
             onClick={() => setSubmitted(true)}
             disabled={finalAmount <= 0}
             className="w-full mt-6 bg-gold hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed text-forest-dark font-bold py-3.5 rounded-full transition-colors"
           >
             {c.submit}
-          </button>
+          </motion.button>
           <p className="flex items-center gap-1.5 justify-center text-xs text-forest/50 mt-4">
             <Lock size={12} /> {c.secure}
           </p>
-        </aside>
-      </div>
+        </motion.aside>
+      </motion.div>
     </section>
   );
 }

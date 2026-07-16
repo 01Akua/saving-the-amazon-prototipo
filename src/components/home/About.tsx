@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ShieldCheck, Languages, Zap } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
+import { staggerContainer, staggerItem } from "@/components/Reveal";
 
 const copy = {
   es: {
@@ -33,19 +35,39 @@ export function About() {
   const c = copy[lang];
 
   return (
-    <section id="nosotros" className="mx-auto max-w-6xl px-5 sm:px-8 py-24 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-      <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
+    <section
+      id="nosotros"
+      className="mx-auto max-w-6xl px-5 sm:px-8 py-24 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center"
+    >
+      <motion.div
+        initial={{ opacity: 0, x: -32 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative aspect-[4/5] rounded-3xl overflow-hidden"
+      >
         <Image src={asset("/images/comunidad-tayazu.png")} alt="Comunidad Tayazú, Vaupés" fill className="object-cover" />
-      </div>
+      </motion.div>
 
-      <div>
-        <p className="text-gold font-bold text-sm uppercase tracking-[0.2em] mb-4">{c.eyebrow}</p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5">{c.title}</h2>
-        <p className="text-forest/70 leading-relaxed mb-8">{c.text}</p>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerContainer}
+      >
+        <motion.p variants={staggerItem} className="text-gold font-bold text-sm uppercase tracking-[0.2em] mb-4">
+          {c.eyebrow}
+        </motion.p>
+        <motion.h2 variants={staggerItem} className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5">
+          {c.title}
+        </motion.h2>
+        <motion.p variants={staggerItem} className="text-forest/70 leading-relaxed mb-8">
+          {c.text}
+        </motion.p>
 
         <div className="space-y-5">
           {c.points.map((p) => (
-            <div key={p.title} className="flex gap-4">
+            <motion.div key={p.title} variants={staggerItem} className="flex gap-4">
               <div className="w-10 h-10 shrink-0 rounded-full bg-forest/8 text-forest flex items-center justify-center">
                 <p.icon size={18} />
               </div>
@@ -53,10 +75,10 @@ export function About() {
                 <h4 className="font-bold text-forest text-sm">{p.title}</h4>
                 <p className="text-sm text-forest/60">{p.text}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

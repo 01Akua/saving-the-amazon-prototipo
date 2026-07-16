@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
+import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
 
 const copy = {
   es: {
@@ -66,36 +68,43 @@ export function ProjectsGrid() {
   return (
     <section id="proyectos" className="bg-cream py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="text-center mb-14">
+        <Reveal className="text-center mb-14">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-forest">{c.title}</h2>
           <p className="text-forest/60 mt-2">{c.subtitle}</p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-7">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-7"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+        >
           {c.cards.map((card) => (
-            <Link
-              key={card.title}
-              href={card.href}
-              className="group block rounded-2xl overflow-hidden bg-white border border-forest/10 hover:shadow-xl hover:shadow-forest/10 transition-shadow"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Image
-                  src={asset(card.image)}
-                  alt={card.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-forest text-lg mb-1.5">{card.title}</h3>
-                <p className="text-sm text-forest/60 leading-relaxed mb-4">{card.text}</p>
-                <span className="inline-flex items-center gap-1.5 text-sm font-bold text-gold group-hover:gap-2.5 transition-all">
-                  {c.cta} <ArrowRight size={15} />
-                </span>
-              </div>
-            </Link>
+            <motion.div key={card.title} variants={staggerItem} whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
+              <Link
+                href={card.href}
+                className="group block rounded-2xl overflow-hidden bg-white border border-forest/10 hover:shadow-xl hover:shadow-forest/10 transition-shadow"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={asset(card.image)}
+                    alt={card.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-forest text-lg mb-1.5">{card.title}</h3>
+                  <p className="text-sm text-forest/60 leading-relaxed mb-4">{card.text}</p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-gold group-hover:gap-2.5 transition-all">
+                    {c.cta} <ArrowRight size={15} />
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

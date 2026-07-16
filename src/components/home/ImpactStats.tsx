@@ -1,6 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useLang } from "@/lib/i18n";
+import { CountUp } from "@/components/CountUp";
+import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
 
 const stats = {
   es: [
@@ -29,15 +32,25 @@ export function ImpactStats() {
   return (
     <section id="impacto" className="bg-forest text-white">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-12">{title[lang]}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 text-center">
+        <Reveal>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-12">{title[lang]}</h2>
+        </Reveal>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+        >
           {stats[lang].map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl sm:text-4xl font-extrabold text-gold-light">{s.value}</p>
+            <motion.div key={s.label} variants={staggerItem}>
+              <p className="text-3xl sm:text-4xl font-extrabold text-gold-light">
+                <CountUp value={s.value} />
+              </p>
               <p className="text-sm text-cream/70 mt-1.5">{s.label}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

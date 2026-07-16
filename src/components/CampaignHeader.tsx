@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
@@ -16,7 +17,12 @@ export function CampaignHeader() {
   const { lang } = useLang();
 
   return (
-    <header className="sticky top-0 z-50 bg-cream-soft/95 backdrop-blur border-b border-forest/10">
+    <motion.header
+      initial={{ y: -16, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="sticky top-0 z-50 bg-cream-soft/95 backdrop-blur border-b border-forest/10"
+    >
       <div className="mx-auto max-w-5xl px-5 sm:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src={asset("/images/logo.png")} alt="Saving The Amazon" width={120} height={49} className="h-8 w-auto" />
@@ -32,6 +38,6 @@ export function CampaignHeader() {
           <LangToggle />
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

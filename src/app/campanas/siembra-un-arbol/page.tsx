@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, MapPin, Users, ShieldCheck } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { asset } from "@/lib/site-config";
 import { CampaignHeader } from "@/components/CampaignHeader";
 import { Footer } from "@/components/Footer";
+import { Reveal, staggerContainer, staggerItem } from "@/components/Reveal";
 
 const copy = {
   es: {
@@ -88,29 +90,47 @@ export default function SiembraUnArbolPage() {
       <CampaignHeader />
       <main className="flex-1">
         <section className="mx-auto max-w-5xl px-5 sm:px-8 pt-14 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
+            <motion.h1
+              variants={staggerItem}
+              className="text-3xl sm:text-4xl font-extrabold text-forest leading-tight mb-5"
+            >
               {c.title}
-            </h1>
-            <p className="text-forest/70 leading-relaxed mb-4">{c.intro}</p>
-            <p className="text-forest/70 leading-relaxed mb-8">{c.intro2}</p>
+            </motion.h1>
+            <motion.p variants={staggerItem} className="text-forest/70 leading-relaxed mb-4">
+              {c.intro}
+            </motion.p>
+            <motion.p variants={staggerItem} className="text-forest/70 leading-relaxed mb-8">
+              {c.intro2}
+            </motion.p>
 
-            <div className="bg-cream rounded-2xl border border-forest/10 p-6 flex items-center justify-between gap-4 flex-wrap">
+            <motion.div
+              variants={staggerItem}
+              className="bg-cream rounded-2xl border border-forest/10 p-6 flex items-center justify-between gap-4 flex-wrap"
+            >
               <div>
                 <p className="text-2xl font-extrabold text-forest">{c.price}</p>
                 <p className="text-xs text-forest/50">{c.priceNote}</p>
               </div>
-              <Link
-                href="/donar?campana=siembra-un-arbol"
-                className="group bg-gold hover:bg-gold-light text-forest-dark font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors whitespace-nowrap"
-              >
-                {c.cta}
-                <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+              <Link href="/donar?campana=siembra-un-arbol">
+                <motion.span
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="group bg-gold hover:bg-gold-light text-forest-dark font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-colors whitespace-nowrap"
+                >
+                  {c.cta}
+                  <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+                </motion.span>
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative aspect-[4/5] rounded-3xl overflow-hidden"
+          >
             <Image
               src={asset("/images/campana-siembra.jpg")}
               alt={c.title}
@@ -118,17 +138,30 @@ export default function SiembraUnArbolPage() {
               preload={true}
               className="object-cover"
             />
-          </div>
+          </motion.div>
         </section>
 
         <section className="bg-cream py-20 mt-6">
           <div className="mx-auto max-w-5xl px-5 sm:px-8">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-forest text-center mb-12">
-              {c.benefitsTitle}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <Reveal>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-forest text-center mb-12">
+                {c.benefitsTitle}
+              </h2>
+            </Reveal>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+            >
               {c.benefits.map((b) => (
-                <div key={b.title} className="bg-white rounded-2xl p-6 border border-forest/10 flex gap-4">
+                <motion.div
+                  key={b.title}
+                  variants={staggerItem}
+                  whileHover={{ y: -4 }}
+                  className="bg-white rounded-2xl p-6 border border-forest/10 flex gap-4"
+                >
                   <div className="w-11 h-11 shrink-0 rounded-full bg-forest text-gold-light flex items-center justify-center">
                     <b.icon size={19} />
                   </div>
@@ -136,22 +169,25 @@ export default function SiembraUnArbolPage() {
                     <h3 className="font-bold text-forest mb-1">{b.title}</h3>
                     <p className="text-sm text-forest/60 leading-relaxed">{b.text}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-5 sm:px-8 py-16 text-center">
+        <Reveal as="div" className="mx-auto max-w-5xl px-5 sm:px-8 py-16 text-center">
           <p className="text-forest/50 text-sm font-semibold mb-8">{c.trust}</p>
-          <Link
-            href="/donar?campana=siembra-un-arbol"
-            className="group bg-forest hover:bg-forest-light text-white font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
-          >
-            {c.cta}
-            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+          <Link href="/donar?campana=siembra-un-arbol">
+            <motion.span
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="group bg-forest hover:bg-forest-light text-white font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
+            >
+              {c.cta}
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            </motion.span>
           </Link>
-        </section>
+        </Reveal>
       </main>
       <Footer />
     </>
